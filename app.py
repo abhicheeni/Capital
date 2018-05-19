@@ -6,13 +6,13 @@ app = Flask(__name__, static_url_path = "")
 auth = HTTPBasicAuth()
 
     
-@app.errorhandler(400)
-def not_found(error):
-    return make_response(jsonify( { 'error': 'Bad request' } ), 400)
+#@app.errorhandler(400)
+#def not_found(error):
+#    return make_response(jsonify( { 'error': 'Bad request' } ), 400)
 
-@app.errorhandler(404)
-def not_found(error):
-    return make_response(jsonify( { 'error': 'Not found' } ), 404)
+#@app.errorhandler(404)
+#def not_found(error):
+#    return make_response(jsonify( { 'error': 'Not found' } ), 404)
 
 countries = [
             {
@@ -1018,24 +1018,16 @@ countries = [
         ]
  
 
-
- 
-
-
 @app.route('/todo/api/v1.0/countries', methods=['GET'])
 #@auth.login_required
 def get_countries():
     return jsonify({'countries': countries})
 
 
-
-
-
-
-@app.route('/todo/api/v1.0/countries/<string:countryName>', methods = ['GET'])
-def get_country(countryName):
-    country = filter(lambda t: t['countryName'] == countryName, countries)
-    return jsonify({'capital': country})
+@app.route('/todo/api/v1.0/countryName=<string:Name>', methods=['get'])
+def get_database(Name):
+    capital = [database for database in countries if database['countryName'] == Name]
+    return jsonify({'Data': capital[0]})
     
 if __name__ == '__main__':
     app.run(debug = True)
